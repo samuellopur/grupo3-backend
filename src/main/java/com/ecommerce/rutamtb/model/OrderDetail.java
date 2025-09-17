@@ -40,10 +40,4 @@ public class OrderDetail {
     @JsonManagedReference
     private List<Product> productslist = new ArrayList<>();
 
-//    Relacion Product to Imag
-//    Lado propietario
-    @OneToOne
-    @JoinColumn(name = "id_imag")
-    @JsonBackReference
-    private Imag imag;
 }

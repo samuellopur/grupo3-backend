@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 
 @Entity
@@ -24,4 +27,17 @@ public class Product {
     @JsonBackReference
     private OrderDetail orderDetail;
 
+//    Relacion Product to Imag
+//    Lado propietario
+    @OneToOne
+    @JoinColumn(name = "id_imag")
+    @JsonBackReference
+    private Imag imag;
+
+//    Relacion Product to category
+
+    @OneToOne
+    @JoinColumn(name = "id_category")
+    @JsonBackReference
+    private Category category;
 }

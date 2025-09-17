@@ -1,9 +1,7 @@
 package com.ecommerce.rutamtb.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -16,6 +14,13 @@ public class Imag {
     private String url;
     private String description;
     private String alt;
+
+//    Relacion Product to Imag
+//    Lado inverso
+
+    @OneToOne(mappedBy = "imag")
+    @JsonManagedReference
+    private Product product;
 
 
 }
