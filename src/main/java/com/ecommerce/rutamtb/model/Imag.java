@@ -11,8 +11,14 @@ public class Imag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Imag;
+
+    @Column(nullable = false)
     private String url;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private String alt;
 
 //    Relacion Product to Imag

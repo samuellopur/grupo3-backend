@@ -15,9 +15,17 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_OrderDetail;
+
+    @Column(nullable = false)
     private int quantity;
+
+    @Column(nullable = false)
     private Double unitaryPrice;
+
+    @Column(nullable = false)
     private Double subTotalPrice;
+
+    @Column(nullable = false)
     private Double TotalPrice;
 
 //    Relacion OrderDetail to Order

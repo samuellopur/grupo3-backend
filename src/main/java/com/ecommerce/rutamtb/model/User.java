@@ -3,7 +3,6 @@ package com.ecommerce.rutamtb.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,11 +14,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private Long id_User;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(unique = true, nullable = false)
     private String address;
+
+    @Column(unique = true, nullable = false)
     private String phone;
+
+    @Column(nullable = false)
     private Date registerDate;
 
 //    Relacion User to Order

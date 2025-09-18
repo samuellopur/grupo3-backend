@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 
 @Entity
@@ -14,10 +11,20 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Product;
+
+    @Column(nullable = false)
     private String product_name;
+
+    @Column(nullable = false)
     private String price;
+
+    @Column(nullable = false)
     private int Stock;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private String sex;
 
 //    Relacion Product to OrderDetail

@@ -1,7 +1,6 @@
 package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,7 +13,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Order;
+
+    @Column(nullable = false)
     private Date date;
+
+    @Column(nullable = false)
     private String status;
 
 //    Relacion Order to User

@@ -14,7 +14,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Category;
+
+    @Column(nullable = false)
     private String category_name;
+
+    @Column(nullable = false)
     private String category_description;
 
 //    Relación Category to Product
