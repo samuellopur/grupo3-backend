@@ -26,7 +26,7 @@ public class Order {
     /*@JoinColumn(name = "id_user") Define la columna de clave foránea (FK) en la tabla de la entidad propietaria
     referencedColumnName: solo hace falta si apuntas a una columna que no sea la PK de la entidad, Si apuntas a la
     PK, lo normal es omitir referencedColumnName*/
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user", nullable = false)
     @JsonBackReference //se coloca en el lado hijo (el que tiene la clave foránea).
     private User user;
 

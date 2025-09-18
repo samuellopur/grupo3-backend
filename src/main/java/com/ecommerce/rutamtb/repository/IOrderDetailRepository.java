@@ -2,6 +2,8 @@ package com.ecommerce.rutamtb.repository;
 
 import com.ecommerce.rutamtb.model.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IOrderDetail extends JpaRepository<OrderDetail, Long> {
+@Repository
+public interface IOrderDetailRepository extends JpaRepository<OrderDetail, Long> {
 }
