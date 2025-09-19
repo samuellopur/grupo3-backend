@@ -13,6 +13,14 @@ public class Imag {
     private Long id_Imag;
 
     @Column(nullable = false)
+    private String nameImag;
+
+    @Column(nullable = false)
+    private String type;
+
+    private Long size;
+
+    @Column(nullable = false)
     private String url;
 
     @Column(nullable = false)

@@ -31,8 +31,6 @@ jobs:
       - name: Log in to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-        continue-on-error: true
-
 
       - name: Build JAR with Maven
         run: mvn clean package -DskipTests
@@ -44,14 +42,13 @@ jobs:
           JAR=$(ls target/*.jar | head -n1)
           echo "Found JAR: $JAR"
 
-      - name: Build and push Docker image
+      - name: Build Docker image (no cache)
         run: |
-          IMAGE_URI=${{ secrets.ECR_REPOSITORY_URI }}
-          echo "Building Docker image $IMAGE_URI:latest"
-          docker build --no-cache -t $IMAGE_URI:latest .
-          echo "Pushing Docker image $IMAGE_URI:latest"
-          docker push $IMAGE_URI:latest
-      
+          docker build --no-cache -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
 
       - name: Trigger App Runner deployment (start-deployment)
         run: |
