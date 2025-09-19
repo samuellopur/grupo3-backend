@@ -1,12 +1,9 @@
 package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 
@@ -25,27 +22,14 @@ public class OrderDetail {
     @Column(nullable = false)
     private Double subTotalPrice;
 
-    @Column(nullable = false)
-    private Double TotalPrice;
-
 //    Relacion OrderDetail to Order
-//    Lado propietario
-    @OneToOne
-    @JoinColumn(name = "id_order")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_order", nullable = false)
     @JsonBackReference
     private Order order;
 
-//    Relacion OrderDetail to payment
-//    Lado propietario
-    @OneToOne
-    @JoinColumn (name = "id_payment")
-    @JsonBackReference
-    private Payment payment;
-
 //    Relacion OrderDetail or Product
-//    Lado propietario
-    @OneToMany(mappedBy = "orderDetail")
-    @JsonManagedReference
-    private List<Product> productslist = new ArrayList<>();
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_product", nullable = false)
+    private Product product;
 }

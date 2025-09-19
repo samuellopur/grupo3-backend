@@ -1,14 +1,12 @@
 package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-
 @Entity
 public class Payment {
     @Id
@@ -18,19 +16,18 @@ public class Payment {
     @Column(nullable = false)
     private String method;
 
-    @Column(nullable = false)
-    private Double amount;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal amount;
 
     @Column(nullable = false)
     private Date date;
 
     @Column(nullable = false)
-    private Boolean Status;
+    private Boolean status; //
 
-//    Relacion Payment or OrderDetail
-//    Lado inverso
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_order_detail")
-    @JsonManagedReference
-    private OrderDetail orderDetail;
+    // Relacion Payment -> Order (no OrderDetail)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_order")
+    @JsonBackReference
+    private Order order;
 }

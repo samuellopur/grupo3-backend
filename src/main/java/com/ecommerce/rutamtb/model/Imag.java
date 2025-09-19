@@ -1,12 +1,12 @@
 package com.ecommerce.rutamtb.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-
 @Entity
+@Table(name = "images")
 public class Imag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +29,9 @@ public class Imag {
     @Column(nullable = false)
     private String alt;
 
-//    Relacion Product to Imag
-//    Lado inverso
-
-    @OneToOne(mappedBy = "imag")
-    @JsonManagedReference
+    // Relacion Imag -> Product (One-to-One)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_product")
+    @JsonBackReference
     private Product product;
-
-
 }

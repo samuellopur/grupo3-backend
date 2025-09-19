@@ -1,7 +1,7 @@
 package com.ecommerce.rutamtb.service;
 
 import com.ecommerce.rutamtb.model.Imag;
-import com.ecommerce.rutamtb.model.User;
+import com.ecommerce.rutamtb.repository.IImagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,31 +10,30 @@ import java.util.List;
 @Service
 public class ImagService implements IImagService {
 
-    private IImagService imagService;
+    private IImagRepository imagRepository;
 
     @Autowired
-    public ImagService(IImagService imagService) {
-        this.imagService = imagService;
+    public ImagService(IImagRepository imagRepository) {
+        this.imagRepository = imagRepository;
     }
-
 
     @Override
     public List<Imag> getAllImags() {
-        return imagService.getAllImags();
+        return imagRepository.findAll();
     }
 
     @Override
     public Imag getImagById(Long id) {
-        return imagService.getImagById(id);
+        return imagRepository.findById(id).orElse(null);
     }
 
     @Override
     public Imag saveImag(Imag imag) {
-        return imagService.saveImag(imag);
+        return imagRepository.save(imag);
     }
 
     @Override
     public void deleteImag(Imag imag) {
-        imagService.deleteImag(imag);
+        imagRepository.delete(imag);
     }
 }

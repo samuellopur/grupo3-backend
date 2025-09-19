@@ -62,7 +62,7 @@ public class ImagController {
     }
 
     // Sube una imagen (archivo)
-    @PostMapping("/upload")
+  /*  @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file,
                                               @RequestParam(value = "productId", required = false) Long productId,
                                               @RequestParam(value = "description", required = false) String description) {
@@ -95,7 +95,7 @@ public class ImagController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error uploading image: " + e.getMessage());
         }
-    }
+    }*/
 
     // Actualiza una imagen existente
     @PutMapping("/{id}")

@@ -5,10 +5,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,23 +23,18 @@ public class Order {
     @Column(nullable = false)
     private String status;
 
-//    Relacion Order to User
-//    Lado propietario aquí va la FK "id_user"
-    /* fetch = FetchType.LAZY en colecciones (OneToMany es LAZY por defecto) y en ManyToOne explícitamente LAZY si
-    quieres evitar cargas inesperadas (por defecto ManyToOne puede ser EAGER)*/
-    @ManyToOne
+    @Column(nullable = false)
+    private Double subTotalPrice;
 
-    /*@JoinColumn(name = "id_user") Define la columna de clave foránea (FK) en la tabla de la entidad propietaria
-    referencedColumnName: solo hace falta si apuntas a una columna que no sea la PK de la entidad, Si apuntas a la
-    PK, lo normal es omitir referencedColumnName*/
+//    Relacion Order to User
+    @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     @JsonBackReference //se coloca en el lado hijo (el que tiene la clave foránea).
     private User user;
 
 
 //    Relacion Order or OrderDetail
-//    Lado inverso
-    @OneToOne (mappedBy = "orderdetail")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private OrderDetail orderDetail;
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 }

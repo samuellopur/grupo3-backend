@@ -47,7 +47,7 @@ public class ProductController {
     }
 
     // Crea un nuevo producto
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createProduct(@RequestBody Product product) {
         try {
             Product savedProduct = productService.saveProduct(product);

@@ -43,7 +43,7 @@ public class UserController {
     }
 
     // Crea un nuevo usuario
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody User user) {
         try {
             userService.saveUser(user);

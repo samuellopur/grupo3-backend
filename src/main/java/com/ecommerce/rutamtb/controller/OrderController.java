@@ -47,7 +47,7 @@ public class OrderController {
     }
 
     // Crea una nueva orden
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createOrder(@RequestBody Order order) {
         try {
             Order savedOrder = orderService.saveOrder(order);

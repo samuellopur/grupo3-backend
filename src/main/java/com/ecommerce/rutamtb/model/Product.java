@@ -1,11 +1,14 @@
 package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
-
 @Entity
 public class Product {
     @Id
@@ -15,11 +18,11 @@ public class Product {
     @Column(nullable = false)
     private String product_name;
 
-    @Column(nullable = false)
-    private String price;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
     @Column(nullable = false)
-    private int Stock;
+    private int stock; //
 
     @Column(nullable = false)
     private String description;
@@ -27,24 +30,18 @@ public class Product {
     @Column(nullable = false)
     private String sex;
 
-//    Relacion Product to OrderDetail
-//    Lado inverso
-    @ManyToOne
-    @JoinColumn(name = "id_order_detail")
-    @JsonBackReference
-    private OrderDetail orderDetail;
-
-//    Relacion Product to Imag
-//    Lado propietario
-    @OneToOne
-    @JoinColumn(name = "id_imag")
-    @JsonBackReference
-    private Imag imag;
-
-//    Relacion Product to category
-
-    @OneToOne
+    // Relacion Product -> Category
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_category")
     @JsonBackReference
     private Category category;
+
+    // Relacion Product -> Imag (One-to-One)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    private Imag imag;
+
+    //Relación inversa Product con OrderDetails
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore // Evita loops infinitos
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 }
