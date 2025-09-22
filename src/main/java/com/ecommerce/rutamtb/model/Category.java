@@ -16,9 +16,6 @@ public class Category {
     @Column(nullable = false)
     private String category_name;
 
-    @Column(nullable = false)
-    private String category_description;
-
     // Relacion Category -> Products
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
