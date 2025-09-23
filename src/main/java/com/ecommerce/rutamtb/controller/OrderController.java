@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/rutamtb/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     // Obtiene todas las órdenes
-    @GetMapping
+    @GetMapping("/searchall")
     public ResponseEntity<List<Order>> getAllOrders() {
         try {
             List<Order> orders = orderService.getAllOrders();
@@ -32,7 +32,7 @@ public class OrderController {
     }
 
     // Obtiene una orden por ID
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         try {
             Order order = orderService.getOrderById(id);
@@ -60,7 +60,7 @@ public class OrderController {
     }
 
     // Actualiza una orden existente
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateOrder(@PathVariable Long id, @RequestBody Order order) {
         try {
             Order existingOrder = orderService.getOrderById(id);
@@ -79,7 +79,7 @@ public class OrderController {
     }
 
     // Elimina una orden por ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
         try {
             Order order = orderService.getOrderById(id);

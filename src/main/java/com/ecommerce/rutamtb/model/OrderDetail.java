@@ -2,11 +2,17 @@ package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
+import java.math.BigDecimal;
 
 
-@Data
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"order", "product"})
+@ToString(exclude = {"order", "product"})
 @Entity
 public class OrderDetail {
     @Id
@@ -16,11 +22,11 @@ public class OrderDetail {
     @Column(nullable = false)
     private int quantity;
 
-    @Column(nullable = false)
-    private Double unitaryPrice;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal unitaryPrice;
 
-    @Column(nullable = false)
-    private Double subTotalPrice;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal subTotalPrice;
 
 //    Relacion OrderDetail to Order
     @ManyToOne(fetch = FetchType.LAZY)

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/rutamtb/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     // Obtiene un producto por ID
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         try {
             Product product = productService.getProductById(id);
@@ -60,7 +60,7 @@ public class ProductController {
     }
 
     // Actualiza un producto existente
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         try {
             Product existingProduct = productService.getProductById(id);
@@ -78,7 +78,7 @@ public class ProductController {
     }
 
     // Elimina un producto por ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         try {
             Product product = productService.getProductById(id);

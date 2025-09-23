@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/images")
+@RequestMapping("/rutamtb/images")
 public class ImagController {
 
     private final ImagService imagService;
@@ -23,7 +23,7 @@ public class ImagController {
     }
 
     // Obtiene todas las imágenes
-    @GetMapping
+    @GetMapping("/searchall")
     public ResponseEntity<List<Imag>> getAllImages() {
         try {
             List<Imag> images = imagService.getAllImags();
@@ -34,7 +34,7 @@ public class ImagController {
     }
 
     // Obtiene una imagen por ID
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     public ResponseEntity<Imag> getImageById(@PathVariable Long id) {
         try {
             Imag image = imagService.getImagById(id);
@@ -49,7 +49,7 @@ public class ImagController {
     }
 
     // Crea una nueva imagen (metadata)
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createImage(@RequestBody Imag image) {
         try {
             Imag savedImage = imagService.saveImag(image);

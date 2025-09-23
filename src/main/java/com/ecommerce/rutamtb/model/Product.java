@@ -3,12 +3,17 @@ package com.ecommerce.rutamtb.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"category", "imag", "orderDetails"})
+@ToString(exclude = {"category", "imag", "orderDetails"})
 @Entity
 public class Product {
     @Id
@@ -37,7 +42,7 @@ public class Product {
     private Category category;
 
     // Relacion Product -> Imag (One-to-One)
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Imag imag;
 
     //Relación inversa Product con OrderDetails

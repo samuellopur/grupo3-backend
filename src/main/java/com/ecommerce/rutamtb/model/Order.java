@@ -3,13 +3,19 @@ package com.ecommerce.rutamtb.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"user", "orderDetails", "payment"})
+@ToString(exclude = {"user", "orderDetails", "payment"})
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -23,8 +29,8 @@ public class Order {
     @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false)
-    private Double subTotalPrice;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal subTotalPrice;
 
 //    Relacion Order to User
     @ManyToOne
@@ -37,4 +43,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<OrderDetail> orderDetails = new ArrayList<>();
+
+//    Relacion Order to Payment (bidireccional)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Payment payment;
 }

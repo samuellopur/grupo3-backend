@@ -2,9 +2,14 @@ package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"product"})
+@ToString(exclude = {"product"})
 @Entity
 @Table(name = "images")
 public class Imag {

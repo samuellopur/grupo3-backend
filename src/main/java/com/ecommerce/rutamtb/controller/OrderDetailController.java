@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/order-details")
+@RequestMapping("/rutamtb/order-details")
 public class OrderDetailController {
 
     private final OrderDetailService orderDetailService;
@@ -21,7 +21,7 @@ public class OrderDetailController {
     }
 
     // Obtiene todos los detalles de órdenes
-    @GetMapping
+    @GetMapping("/searchall")
     public ResponseEntity<List<OrderDetail>> getAllOrderDetails() {
         try {
             List<OrderDetail> orderDetails = orderDetailService.getAllOrderDetails();
@@ -32,7 +32,7 @@ public class OrderDetailController {
     }
 
     // Obtiene un detalle de orden por ID
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     public ResponseEntity<OrderDetail> getOrderDetailById(@PathVariable Long id) {
         try {
             OrderDetail orderDetail = orderDetailService.getOrderDetailById(id);
@@ -47,7 +47,7 @@ public class OrderDetailController {
     }
 
     // Crea un nuevo detalle de orden
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createOrderDetail(@RequestBody OrderDetail orderDetail) {
         try {
             OrderDetail savedOrderDetail = orderDetailService.saveOrderDetail(orderDetail);
@@ -60,7 +60,7 @@ public class OrderDetailController {
     }
 
     // Actualiza un detalle de orden existente
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateOrderDetail(@PathVariable Long id, @RequestBody OrderDetail orderDetail) {
         try {
             OrderDetail existingOrderDetail = orderDetailService.getOrderDetailById(id);
@@ -79,7 +79,7 @@ public class OrderDetailController {
     }
 
     // Elimina un detalle de orden por ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteOrderDetail(@PathVariable Long id) {
         try {
             OrderDetail orderDetail = orderDetailService.getOrderDetailById(id);

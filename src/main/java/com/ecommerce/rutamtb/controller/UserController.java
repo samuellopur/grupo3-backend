@@ -1,17 +1,27 @@
 package com.ecommerce.rutamtb.controller;
 
+//import com.ecommerce.rutamtb.dto.UserDto;
 import com.ecommerce.rutamtb.model.User;
 import com.ecommerce.rutamtb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users") // Cambiado de "/Users" a "/api/users" (convención REST)
+@RequestMapping("/rutamtb/users")
 public class UserController {
+
+    /*@Autowired
+    private PasswordEncoder passwordEncoder;*/
+
+    /*@Autowired
+    private JwtUtil jwtUtil;*/
 
     private final UserService userService;
 
@@ -22,16 +32,16 @@ public class UserController {
 
     // Obtiene todos los usuarios
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<User>> listAllUser() {
+        List<User> users = userService.printAllUsers();
         return ResponseEntity.ok(users);
     }
 
     // Obtiene un usuario por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    @GetMapping("/search/{id}")
+    public ResponseEntity<User> searchUserById(@PathVariable Long id) {
         try {
-            User user = userService.getUserById(id);
+            User user = userService.findUserById(id);
             if (user != null) {
                 return ResponseEntity.ok(user);
             } else {
@@ -44,7 +54,7 @@ public class UserController {
 
     // Crea un nuevo usuario
     @PostMapping("/create")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
+    public ResponseEntity<String> create(@RequestBody User user) {
         try {
             userService.saveUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
@@ -54,10 +64,10 @@ public class UserController {
     }
 
     // Actualiza un usuario existente
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User user) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody User user) {
         try {
-            User existingUser = userService.getUserById(id);
+            User existingUser = userService.findUserById(id);
             if (existingUser != null) {
                 user.setId_User(id); // Asegurar que el ID coincida
                 userService.saveUser(user);
@@ -71,10 +81,10 @@ public class UserController {
     }
 
     // Elimina un usuario por ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
-            User user = userService.getUserById(id);
+            User user = userService.findUserById(id);
             if (user != null) {
                 userService.deleteUser(user);
                 return ResponseEntity.ok("User deleted successfully");

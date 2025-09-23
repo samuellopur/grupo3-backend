@@ -3,11 +3,17 @@ package com.ecommerce.rutamtb.service;
 import com.ecommerce.rutamtb.model.User;
 import com.ecommerce.rutamtb.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class UserService implements IUserService {
+
+    /*@Autowired
+    private PasswordEncoder passwordEncoder;*/
 
     private final IUserRepository userRepository;
 
@@ -17,12 +23,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> printAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User findUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 

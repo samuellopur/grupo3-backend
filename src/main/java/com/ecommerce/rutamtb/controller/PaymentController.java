@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/payments")
+@RequestMapping("/rutamtb/payments")
 public class PaymentController {
 
     private final PaymentService paymentService;
@@ -32,7 +32,7 @@ public class PaymentController {
     }
 
     // Obtiene un pago por ID
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     public ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
         try {
             Payment payment = paymentService.getPaymenteById(id);
@@ -47,7 +47,7 @@ public class PaymentController {
     }
 
     // Crea un nuevo pago
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createPayment(@RequestBody Payment payment) {
         try {
             Payment savedPayment = paymentService.savePaymente(payment);
@@ -60,7 +60,7 @@ public class PaymentController {
     }
 
     // Actualiza un pago existente
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updatePayment(@PathVariable Long id, @RequestBody Payment payment) {
         try {
             Payment existingPayment = paymentService.getPaymenteById(id);
@@ -78,7 +78,7 @@ public class PaymentController {
     }
 
     // Elimina un pago por ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePayment(@PathVariable Long id) {
         try {
             Payment payment = paymentService.getPaymenteById(id);

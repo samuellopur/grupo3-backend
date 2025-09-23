@@ -7,13 +7,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"orderList"})
+@ToString(exclude = {"orderList"})
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_User;
+
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String name;

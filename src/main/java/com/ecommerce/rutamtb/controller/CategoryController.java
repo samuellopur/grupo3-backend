@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/rutamtb/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -21,7 +21,7 @@ public class CategoryController {
     }
 
     // Obtiene todas las categorías
-    @GetMapping
+    @GetMapping("/searchall")
     public ResponseEntity<List<Category>> getAllCategories() {
         try {
             List<Category> categories = categoryService.getAllCategories();
@@ -32,8 +32,8 @@ public class CategoryController {
     }
 
     // Obtiene una categoría por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Category> findCategoryById(@PathVariable Long id) {
         try {
             Category category = categoryService.getCategoryById(id);
             if (category != null) {
@@ -47,7 +47,7 @@ public class CategoryController {
     }
 
     // Crea una nueva categoría
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createCategory(@RequestBody Category category) {
         try {
             Category savedCategory = categoryService.saveCategory(category);
@@ -65,7 +65,7 @@ public class CategoryController {
     }
 
     // Actualiza una categoría existente
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateCategory(@PathVariable Long id, @RequestBody Category category) {
         try {
             Category existingCategory = categoryService.getCategoryById(id);
@@ -89,7 +89,7 @@ public class CategoryController {
     }
 
     // Elimina una categoría por ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
         try {
             Category category = categoryService.getCategoryById(id);

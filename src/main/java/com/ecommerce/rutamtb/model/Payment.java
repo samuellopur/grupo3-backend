@@ -2,11 +2,16 @@ package com.ecommerce.rutamtb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"order"})
+@ToString(exclude = {"order"})
 @Entity
 public class Payment {
     @Id
