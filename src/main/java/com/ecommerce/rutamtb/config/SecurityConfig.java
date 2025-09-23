@@ -57,11 +57,15 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Endpoints públicos
+                // Endpoints públicos - orden importante
+                .requestMatchers("/", "/health", "/test").permitAll()
                 .requestMatchers("/rutamtb/auth/**").permitAll()
                 .requestMatchers("/rutamtb/products/**").permitAll()
                 .requestMatchers("/rutamtb/categories/**").permitAll()
                 .requestMatchers("/rutamtb/images/**").permitAll()
+                // Endpoints para health check y actuator
+                .requestMatchers("/actuator/**").permitAll()
+                .requestMatchers("/health/**").permitAll()
                 // Endpoints que requieren autenticación
                 .requestMatchers("/rutamtb/users/**").authenticated()
                 .requestMatchers("/rutamtb/orders/**").authenticated()
@@ -79,17 +83,29 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Permitir el dominio de producción del frontend y desarrollo local
+        // Permitir orígenes específicos
         configuration.setAllowedOriginPatterns(Arrays.asList(
             "https://master.d1madz5fpdj89j.amplifyapp.com",
+            "https://8mq33rknsp.us-east-1.awsapprunner.com",
             "http://localhost:*",
             "http://127.0.0.1:*",
             "https://localhost:*"
         ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        
+        // Métodos HTTP permitidos
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));
+        
+        // Headers permitidos
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        
+        // Headers expuestos
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "X-Requested-With", "Cache-Control"));
+        
+        // Permitir credenciales
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // Cache de preflight por 1 hora
+        
+        // Cache de preflight
+        configuration.setMaxAge(3600L);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
